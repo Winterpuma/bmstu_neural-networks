@@ -12,7 +12,7 @@ def train_perceptron():
         network.s_layer.add_neuron(None, lambda value: value)
     print('S-layer generated')
 
-    a_neurons_count = 2 ** input_count - 1
+    a_neurons_count = 2 * 100
     for position in range(a_neurons_count):
         neuron = ANeuron(None, lambda value: int(value >= 0))
         # инициализация весов нейронов А слоя
@@ -33,13 +33,12 @@ def train_perceptron():
 
 
 def test_network(network):
-    total_classifications = len(test_dataset) * len(test_dataset[0].results)
+    total_classifications = len(test_dataset) 
     misc = 0
     for data in test_dataset:
         results = network.solve(data.inputs)
-        for result, expected_result in zip(results, data.results):
-            if result != expected_result:
-                misc += 1
+        if results != data.results:
+            misc += 1
 
     print('----------------------------')
     print(
